@@ -44,10 +44,15 @@
       </button>
     </div>
   </form>
-  {#if form?.success && !form?.payment}
-  <p class="pt-2">Login successful.!</p>
-  <p>Your balance is : {form?.balance} sats</p>
+{#if form}
+  {#if form.success && !form.payment}
+    <p>Login successful!</p>
+    <p>Your balance is: {form.balance} sats</p>
+  {:else if !form.success}
+    <p>Error: {form.err}</p>
   {/if}
+{/if}
+
 </div>
 
 <div class="mt-20 pt-5 w-full max-w-xl p-12 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg">
@@ -122,13 +127,13 @@
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-4 mb-2"
             for="note"
           >
-            Note
+            Note ( optional )
           </label>
           <input
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="note"
             type="text"
-            placeholder="Enter Note"
+            placeholder="Enter Note "
             name="note"
           />
         </div>
@@ -142,19 +147,24 @@
     </div>
     
   </form>
-  {#if form?.success && form?.payment } 
-  <p class="pt-2">Payment successful.!</p>
-  <div style="display: flex; align-items: center;">
-    <p>Here are the transaction details. -> </p>
-    <a
-      href={`https://whatsonchain.com/tx/${form?.txId}`}
-      target="_blank"
-      style="background-color: #1D4ED8; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; margin-left: 0.5rem; text-decoration: none; display: inline-block;"
-    >
-      Whatsonchain
-    </a>
-  </div>  
+{#if form}
+  {#if form?.success && form?.payment && form?.txId }
+    <p class="pt-2">Payment successful!</p>
+    <div style="display: flex; align-items: center;">
+      <p>Here are the transaction details:</p>
+      <a
+        href={`https://whatsonchain.com/tx/${form?.txId}`}
+        target="_blank"
+        style="background-color: #1D4ED8; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; margin-left: 0.5rem; text-decoration: none; display: inline-block;"
+      >
+        Whatsonchain
+      </a>
+    </div>
+    {:else if form.success && form?.payment && form?.err}
+    <p>Error: {form.err}</p>
   {/if}
+{/if}
+
 </div>
 
 <div class="m-20" > </div>
