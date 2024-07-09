@@ -1,0 +1,15 @@
+1 - added a scroll in the table component so that when there are so many users in the db the table doesnt push the entry from down and become scrollable
+
+2 - add error handling while user register, its showing user created but its not happninh certain times - one email is not being accepted twice
+
+3 - issue : whenever a user logs in sucessfully the 'if block' runs and login succesful gets displayed, but the below transaction succesfull also gets display, it shouldnt have been
+silimilary if the transaction is successful the login successfull also gets displayed, fix it and show me how you fixed it
+fixed : did ->  {#if form?.success && !form?.payment}  // not of payment - mtlb login only
+                {#if form?.success && form?.payment}  // payment - mtlb payment kiya
+
+
+4 - added a button to go to whatsonchain website after a successfull payment
+
+5 - : fixed the payment system 
+    issue : the amount being sent was a string
+    fix : parsed to int and issue fixed
