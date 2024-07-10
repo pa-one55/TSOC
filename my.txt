@@ -13,3 +13,17 @@ fixed : did ->  {#if form?.success && !form?.payment}  // not of payment - mtlb 
 5 - : fixed the payment system 
     issue : the amount being sent was a string
     fix : parsed to int and issue fixed
+
+6 - added an edit button and implemented the edit feature 
+    how ? 
+    added an edit button, if clicked
+        a save and a cancel button appear and
+        that user in the form becomes editable
+        if clicked 'cancel' we'll go back to normal
+        if clicked on 'save' the 'update' action will be called and user gets updated in the DB
+
+
+7 - error handling on profiles page 
+    succes message display
+    error message display
+

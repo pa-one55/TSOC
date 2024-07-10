@@ -60,10 +60,14 @@
         </button>
       </div>
     </form>
-    {#if form?.success}
-      <!-- this message is ephemeral; it exists because the page was rendered in
-         response to a form submission. it will vanish if the user reloads -->
-      <p class="pt-2">Added New Applicant!</p>
+    {#if form?.success && form?.userAddAction }
+      <p class="pt-2 text-green-500">Added New Applicant!</p>
+    {:else if form?.success && form?.userUpdateAction }
+      <p class="pt-2 text-yellow-500" >User updated successfully</p>
+    {:else if form?.success && form?.userDeleteAction }
+      <p class="pt-2 text-red-500">User deleted successfully</p>
+    {:else if form?.error && form?.userAddAction }
+      <p class="pt-2 text-red-500">Error : {form.error}</p>
     {/if}
   </div>
 </div>
