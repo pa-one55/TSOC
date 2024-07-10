@@ -22,10 +22,14 @@ export const actions = {
             return { success : true, login : true, balance : DefaultWalletBalance.data.balance.summary}; //  login : true - mtlb login action se data jaa rha hai
         }
         catch(error){
-            console.error("Login action error:", error);
-            return { success : false, login : true, error: "An error occurred during login." };
+            console.error(error.message);
+            if( error.message == "Authentication request failed: Error: Request failed with status code 401" ){
+                return { success : false, login : true, error: error.message, msg:"Check your credentials."};
+            }
+            else{
+                return { success : false, login : true, error: error.message };
+            }
         }
-
     },
     // pay action
     pay: async ({ request }) => {
@@ -37,38 +41,38 @@ export const actions = {
             if (!data.get(field)) return { success: true, payment: true, err: "Please enter all the necessary fields.!" }
         }
         
+        
+        const neucron = new NeucronSDK(); // initializing the neucron sdk
+
+        const authModule = neucron.authentication;
+        const walletModule = neucron.wallet;
+
+        const loginResponse = await authModule.login({ email: data.get('email'), password: data.get('password') });
+
+        const paymail = data.get('paymail');
+        const amount = Number(data.get('amount'));
+        const note = data.get('note') || ''; // optional note
+
+        const options = {
+            "outputs": [
+                {
+                    "address": paymail,
+                    "amount": amount,
+                    "note": note
+                },
+            ],
+        };
+
+        // console.log(options);
+        let payResponse;
         try{
-            const neucron = new NeucronSDK(); // initializing the neucron sdk
-
-            const authModule = neucron.authentication;
-            const walletModule = neucron.wallet;
-
-            const loginResponse = await authModule.login({ email: data.get('email'), password: data.get('password') });
-
-            const paymail = data.get('paymail');
-            const amount = Number(data.get('amount'));
-            const note = data.get('note') || ''; // optional note
-
-            const options = {
-                "outputs": [
-                    {
-                        "address": paymail,
-                        "amount": amount,
-                        "note": note
-                    },
-                ],
-            };
-
-            console.log(options);
-
-            let payResponse = await neucron.pay.txSpend(options);
+            payResponse = await neucron.pay.txSpend(options);
             console.log(payResponse);
-
             return { success: true, payment: true, txId: payResponse.data.txid };
         }
         catch(error){
-            console.error("Pay action error:", error);
-            return { success: false, payment: true, error: error  };
+            console.log(error.message);
+            return { success: false, payment: true, error: error.message  };
         }
     },
 };

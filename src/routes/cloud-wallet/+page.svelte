@@ -29,20 +29,15 @@
 
       {#if form}
         {#if form?.success && form?.login}
-          <p>Login successful!</p>
-          <p>Your balance is: {form?.balance} sats</p>
+          <p class="mt-2 mb-2 pt-2 text-green-500 font-semibold">Login successful.!</p>
+          <p class="text-green-500 font-semibold" >Your balance is : {form?.balance} sats</p>
+        {:else if !form?.success && form?.login && form?.msg }
+          <p class="pt-4 text-red-500 font-bold">{form?.error}</p>
+          <p class="pt-4 text-red-500 font-bold">{form?.msg}</p>
         {:else if !form?.success && form?.login}
-          <p style="color: red;">Error: {form?.error}</p>
+          <p class="pt-4 text-red-500 font-bold">{form?.error}</p>
         {/if}
       {/if}
-      <!-- {#if form}
-        {#if form.success && form.login}
-          <p>Login successful!</p>
-          <p>Your balance is: {form.balance} sats</p>
-        {:else if !form.success && form.login}
-          <p style="color: red;">Error: {form.error}</p>
-        {/if}
-      {/if} -->
     </div>
 
     <div class="m-5 p-5" > </div>
@@ -62,16 +57,8 @@
             <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="password" type="text" placeholder="Enter password" name="password" />
           </div>
         </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 px-10 py-2 rounded">Create Account</button>
+        <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 px-10 py-2 rounded">Create Account</button> -->
       </form>
-<!-- 
-      {#if form}
-        {#if form.success && form.accountCreated}
-          <p>Account Created successful!</p>
-        {:else if !form.success && form.accountCreated}
-          <p style="color: red;">Error: {form.err}</p>
-        {/if}
-      {/if} -->
     </div>
 
   </div>
@@ -110,21 +97,9 @@
         <a href={`https://whatsonchain.com/tx/${form.txId}`} target="_blank" style="background-color: #1D4ED8; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; margin-left: 0.5rem; text-decoration: none; display: inline-block;">Whatsonchain</a>
       </div>
     {:else if !form?.success && form?.payment && form?.error}
-      <p style="color: red;" class="pt-2">Error: {form?.error}</p>
+      <p class="pt-4 text-red-500 font-bold">{form?.error}</p>
     {/if}
   {/if}
-<!-- 
-    {#if form}
-      {#if form?.success && form?.payment }
-        <p class="pt-2">Payment successful!</p>
-        <div style="display: flex; align-items: center;">
-          <p>Here are the transaction details:</p>
-          <a href={`https://whatsonchain.com/tx/${form?.txId}`} target="_blank" style="background-color: #1D4ED8; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; margin-left: 0.5rem; text-decoration: none; display: inline-block;">Whatsonchain</a>
-        </div>
-      {:else if !form.success && form?.payment && form?.error}
-        <p style="color: red;" class="pt-2">Error: {form.err}</p>
-      {/if}
-    {/if} -->
   </div>
 </div>
 
