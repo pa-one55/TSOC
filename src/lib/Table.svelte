@@ -35,6 +35,7 @@
                             <input class="font-medium pt-1 leading-none" type="text" name="name" value={user.name} required>
                             <input class="font-medium pl-5 text-gray-500 pt-0" type="email" name="email" value={user.email} required>
                         </div>
+                        <p class="mt-1 pt-1 text-yellow-500">You can edit now</p>
                         <div class="flex space-x-2 mt-2">
                             <button type="submit" class="mr-2 px-2 py-1 bg-green-500 text-white font-semibold rounded hover:bg-green-700 text-sm">
                                 Save
