@@ -58,6 +58,7 @@
           </div>
         </div>
         <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 px-10 py-2 rounded">Create Account</button> -->
+        <p class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 px-10 py-2 rounded inline-block">Create Account</p>
       </form>
     </div>
 
